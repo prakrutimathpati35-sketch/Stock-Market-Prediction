@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login Page</title>
+    <style>
+        /* Body & Background */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background image with zoom animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("{{ url_for('static', filename='images/stock-market.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            filter: brightness(0.6);
+            animation: zoomBackground 20s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        /* Dark overlay on top of background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* Keyframes for zoom animation */
+        @keyframes zoomBackground {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Login container with fade-in and slide-up */
+        .login-container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            color: white;
+
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeSlideIn 1s forwards ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Text */
+        .login-container h2 {
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        /* Inputs */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .login-container input[type="text"]:focus,
+        .login-container input[type="password"]:focus {
+            background-color: rgba(255, 255, 255, 1);
+            outline: none;
+        }
+
+        /* Submit Button */
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .login-container input[type="submit"]:hover {
+            background: linear-gradient(135deg, #ff84d6, #5e57e0);
+            transform: translateY(-2px);
+        }
+
+        /* Placeholder color */
+        .login-container input::placeholder {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <input type="text" name="username" placeholder="Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <input type="submit" value="Login" />
+        </form>
+    </div>
+</body>
+</html>
